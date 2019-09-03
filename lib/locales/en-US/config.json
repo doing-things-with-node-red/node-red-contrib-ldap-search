@@ -5,7 +5,8 @@
             "host": "Host",
             "port": "Port",
             "insecure": "Insecure",
-            "password": "password"
+            "password": "password",
+            "ddn": "Bind DN"
         },
         "placeholder": {
             "name": "ldapSearchConfig",
