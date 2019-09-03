@@ -1,0 +1,21 @@
+{
+    "ldap": {
+        "label": {
+            "name": "Name",
+            "host": "Host",
+            "port": "Port",
+            "insecure": "Insecure",
+            "password": "password"
+        },
+        "placeholder": {
+            "name": "ldapSearchConfig",
+            "host": "127.0.0.1",
+            "port": "389",
+            "password": "password"
+        },
+        "tab": {
+            "connection": "Connection",
+            "security": "Security"
+        } 
+    }
+}
