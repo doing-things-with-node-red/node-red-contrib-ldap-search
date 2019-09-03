@@ -1,0 +1,80 @@
+<script type="text/x-red" data-template-name="ldapSearch">
+    <div class="form-row">
+        <label for="node-input-server"><i class="fa fa-globe"></i> Server</label>
+        <input type="text" id="node-input-server">
+    </div>
+    <div class="form-row">
+        <label for="node-input-basedn"><i class="fa fa-tasks"></i> Base ddn</label>
+        <input type="text" id="node-input-basedn" placeholder="Base ddn">
+        <input type="hidden" id="node-input-basednFieldType">
+    </div>
+    <div class="form-row">
+        <label for="node-input-filter"><i class="fa fa-tasks"></i> Filter</label>
+        <input type="text" id="node-input-filter" placeholder="Filter">
+        <input type="hidden" id="node-input-filterFieldType">
+    </div>
+    <div class="form-row">
+        <label for="node-input-topic"><i class="fa fa-tasks"></i> Topic</label>
+        <input type="text" id="node-input-topic" placeholder="Topic">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+<script type="text/x-red" data-help-name="ldapSearch">
+    <p>LDAP Search node</p>
+    <p>Filter is a mustache capable field e.g. <i>mail={{payload.email}}</i> will take the email field from the msg.payload and insert it in the correct place</p>
+    <p>The node returns an array of objects that represent matching records in the LDAP</p>
+</script>
+<script type="text/javascript">
+    RED.nodes.registerType('ldapSearch',{
+        category: 'storage-output',
+        defaults: {
+            name: {
+                value: ""
+            },
+            server: {
+                type: "ldapSearchConfig",
+                required: true
+            },
+            topic: {
+                value: ""
+            },
+            basedn: {
+                value: ""
+            },
+            basednFieldType: {
+                value: "str"
+            },
+            filter: {
+                value: ""
+            },
+            filterFieldType: {
+                value: "str"
+            }
+        },
+        color: "rgb(218, 196, 180)",
+        inputs: 1,
+        outputs: 1,
+        icon: "watch.png",
+        label: function() {
+            return this.name || this.topic || "ldapSearch";
+        },
+        labelStyle: function() {
+            return this.name ? "node_label_italic" : "";
+        },
+        oneditprepare: function () {
+            $("#node-input-basedn").typedInput({
+                default: 'str',
+                types: ['str', 'msg', 'flow', 'global'],
+                typeField: $("#node-input-basednFieldType")
+            });
+            $("#node-input-filter").typedInput({
+                default: 'str',
+                types: ['str', 'msg', 'flow', 'global'],
+                typeField: $("#node-input-filterFieldType")
+            });
+        }
+    });
+</script>

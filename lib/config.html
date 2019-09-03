@@ -1,0 +1,134 @@
+<script type="text/x-red" data-template-name="ldapSearchConfig">
+    <div class="form-row">
+        <label for="node-config-input-name">
+            <i class="fa fa-tag"></i>
+            <span data-i18n="ldap.label.name"></span>
+        </label>
+        <input type="text" id="node-config-input-name" data-i18n="[placeholder]ldap.placeholder.name">
+    </div>
+    <div class="form-row">
+        <ul style="background: #fff; min-width: 600px; margin-bottom: 20px;" id="ldapSearchConfig-tabs"></ul>
+    </div>
+    <div id="ldapSearchConfig-tabs-content" style="min-height: 170px;">
+        <div id="ldapSearchConfig-tab-connection" style="display: none;">
+            <div class="form-row">
+                <label for="node-config-input-host">
+                    <i class="fa fa-server"></i>
+                    <span data-i18n="ldap.label.host"></span>
+                </label>
+                <input type="text" id="node-config-input-host" data-i18n="[placeholder]ldap.placeholder.host" style="width: 80%;">
+                <input type="hidden" id="node-config-input-hostFieldType">
+            </div>
+            <div class="form-row">
+                <label for="node-config-input-port">
+                    <span data-i18n="ldap.label.port"></span>
+                </label>
+                <input type="text" id="node-config-input-port" data-i18n="[placeholder]ldap.placeholder.port" style="width: 80%;">
+                <input type="hidden" id="node-config-input-portFieldType">
+            </div>
+            <div class="form-row">
+                <label for="node-config-input-ddn" style="width: auto;margin-right: 72px;">
+                    <span data-i18n="ldap.label.ddn"></span>
+                </label>
+                <input type="text" id="node-config-input-ddn" style="display: inline-block; width: auto; vertical-align: top;">
+                <input type="hidden" id="node-config-input-ddnFieldType">
+            </div>
+        </div>
+        <div id="ldapSearchConfig-tab-security" style="display: none;">
+            <div class="form-row">
+                <label for="node-config-input-password">
+                    <i class="fa fa-lldapk"></i>
+                    <span data-i18n="ldap.label.password"></span>
+                </label>
+                <input type="text" id="node-config-input-password" data-i18n="[placeholder]ldap.placeholder.password" style="width: 80%;">
+                <input type="hidden" id="node-config-input-passwordFieldType">
+            </div>
+        </div>
+    </div>
+    </div>
+</script>
+<script type="text/javascript">
+  RED.nodes.registerType('ldapSearchConfig', {
+    category: "config",
+    color: "#FFF",
+    defaults: {
+      name: {
+        value: ""
+      },
+      host: {
+        value: "127.0.0.1",
+        required: true
+      },
+      hostFieldType: {
+        value: "str"
+      },
+      port: {
+        value: 389,
+        required: true
+      },
+      portFieldType: {
+        value: "num"
+      },
+      ddn: {
+        value: "",
+        required: true
+      },
+      ddnFieldType: {
+        value: "str"
+      },
+      password: {
+        type: "text",
+        required: true
+      },
+      passwordFieldType: {
+        value: "str"
+      }
+    },
+    label: function () {
+      if (!this.name) {
+        this.name = "ldap@" + this.host + ":" + this.port;
+      }
+      return this.name;
+    },
+    labelStyle: function () {
+      return this.name ? "node_label_italic" : "";
+    },
+    oneditprepare: function () {
+      const tabs = RED.tabs.create({
+        id: "ldapSearchConfig-tabs",
+        onchange: function (tab) {
+          $("#ldapSearchConfig-tabs-content").children().hide();
+          $("#" + tab.id).show();
+        }
+      });
+      tabs.addTab({
+        id: "ldapSearchConfig-tab-connection",
+        label: this._('ldap.tab.connection')
+      });
+      tabs.addTab({
+        id: "ldapSearchConfig-tab-security",
+        label: this._('ldap.tab.security')
+      });
+      $("#node-config-input-host").typedInput({
+        default: 'str',
+        types: ['str', 'flow', 'global'],
+        typeField: $("#node-config-input-hostFieldType")
+      });
+      $("#node-config-input-port").typedInput({
+        default: 'num',
+        types: ['num', 'flow', 'global'],
+        typeField: $("#node-config-input-portFieldType")
+      });
+      $("#node-config-input-ddn").typedInput({
+        default: 'bool',
+        types: ['str', 'flow', 'global'],
+        typeField: $("#node-config-input-ddnFieldType")
+      });
+      $("#node-config-input-password").typedInput({
+        default: 'str',
+        types: ['str', 'flow', 'global'],
+        typeField: $("#node-config-input-passwordFieldType")
+      });
+    }
+  });
+</script>
