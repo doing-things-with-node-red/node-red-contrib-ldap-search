@@ -9,7 +9,7 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ymedlop/node-red-contrib-ldap-search.git"
+    "url": "https://github.com/doing-things-with-node-red/node-red-contrib-ldap-search.git"
   },
   "keywords": [
     "node-red",
