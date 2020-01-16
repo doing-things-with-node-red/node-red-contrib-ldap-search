@@ -4,7 +4,7 @@
   "description": "Fork: A LDAP search node for Node-RED",
   "dependencies": {
     "ldapjs": "~1.0.1",
-    "mustache": "^3.2.0"
+    "mustache": "^4.0.0"
   },
   "license": "Apache-2.0",
   "repository": {
